@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        h1{
+            text-align: left;
+        }
+        body{
+            color:rgba(91, 66, 232, 0.696);
+            background-color:rgba(0, 0, 0, 0.342);
+            text-shadow: #111;
+            font-size: medium;
+        }
+       
+        /* CSS */
+.button-85 {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background:rgb(232, 83, 123);
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-85:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #00ff62,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.button-85:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: red;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+input[type=text] {
+  transition: width 0.4s ease-in-out;
+}
+
+input[type=text]:focus {
+  width: 100%;
+}
+    </style>
+    
+    
+    <title>CRUD</title>
+   
+</head>
+<body>
+    
+    <h1>CRUD OPERATIONS</h1>
+    <fieldset style="padding: 100px;">
+        <legend>*************Patient Details*************</legend>
+    {{message}}
+    <br>
+    {{#if edit_id}}
+     <h3>Edit</h3>
+    <form method="post" action="/update_StudDet/{{edit_id}}">
+        <label for="">Patient Name</label>
+        <input type="text" name="name" value="{{edit_StudDet.name}}">
+        <br><br>
+        <label for="">Patient id</label>
+        <input type="number" name="id" value="{{edit_StudDet.id}}">
+        <br><br>
+        <label for="">Patient Gender</label>
+        <input type="text" name="gender" value="{{edit_StudDet.gender}}">
+        <br><br>
+        <label for="">Patient Location</label>
+        <input type="text" name="location" value="{{edit_StudDet.location}}">
+        <br><br>
+        <label for="">Patient number</label>
+        <input type="text" name="ph_no" value="{{edit_StudDet.ph_no}}">
+        <br><br>
+        
+        <input type="submit" style="margin:10px" class="button-85" role="button">
+    </form><br><br>
+    {{else}}
+
+    <h3>Create</h3>
+    <form method="post" action="/store_StudDet">
+        <label for="">Patient Name:</label>
+        <input type="text" name="name">
+        <br><br>
+        <label for="">Patient id:</label>
+        <input type="number" name="id">
+        <br><br>
+        <label for="">Patient Gender</label>
+        <input type="text" name="gender">
+        <br><br>
+        <label for="">Patient Location</label>
+        <input type="text" name="location">
+        <br><br>
+        <label for="">Patient number:</label>
+        <input type="text" name="ph_no">
+        <br><br>
+        <input type="submit" class="button-85" role="button" style="margin: 10px;">
+    </form><br><br>
+
+   {{/if}}
+
+    <ul>
+        {{#each StudDet}}
+        <li> {{this.name}} - {{this.age}} - {{this.dept}} - {{this.dob}} - {{this.ph_no}}<a href="/?edit_id={{this._id}}"> <br> <br><button class="button-85" role="button">Edit</button></a>  <a href="/?delete_id={{this._id}}" onclick="return confirm('Are you sure want to delete?')" > <button class="button-85" role="button"> Delete</button></a><br><br></li>
+        {{/each}}
+    </ul>
+</fieldset>
+</body>
+</html>
